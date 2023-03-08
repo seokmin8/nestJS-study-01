@@ -1,5 +1,5 @@
 import { BadRequestException, PipeTransform } from "@nestjs/common";
-import { BoardStatus } from "../board.model";
+import { BoardStatus } from "../board-status.enum";
 
 // BoardStatus를 사용하는 메서드에서 해당 파이프를 사용해주면 된다
 // Update에서 status를 사용!

@@ -1,8 +1,15 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { BoardRepository } from './board.repository';
 import { BoardsController } from './boards.controller';
 import { BoardsService } from './boards.service';
 
 @Module({
+  // Repository는 직접 작성(이렇게하면 Repository 사용가능)
+  imports: [
+    TypeOrmModule.forFeature([BoardRepository])
+  ],
+
   // 컨트롤러 생성시 자동완성
   controllers: [BoardsController],
   
