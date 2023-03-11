@@ -28,7 +28,7 @@ export class BoardsService {
     }
 
     async getBoardById(id: number): Promise <Board> {
-        const found = await this.boardRepository.findOne(id);
+        const found = await this.boardRepository.findOneBy({ id:id })
 
         if(!found) {
             throw new NotFoundException(`Can't find Board with id ${id}`)

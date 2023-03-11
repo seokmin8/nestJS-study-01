@@ -8,14 +8,14 @@ export class BoardsController {
     // 서비스에 Repository를 넣고 생성자로 서비스를 불러오자
     constructor(private boardsService: BoardsService) {}
 
-    @Get('/:id')
-    getBoardById(@Param('id') id:number) : Promise <Board> {
-        return this.boardsService.getBoardById(id);
-    }
-
     @Post()
     @UsePipes(ValidationPipe)
     createBoard(@Body() CreateBoardDto: CreateBoardDto): Promise<Board> {
         return this.boardsService.createBoard(CreateBoardDto);
+    }
+
+    @Get('/:id')
+    getBoardById(@Param('id') id:number) : Promise <Board> {
+        return this.boardsService.getBoardById(id);
     }
 }
