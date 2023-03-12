@@ -1,5 +1,6 @@
 import { BadRequestException, PipeTransform } from "@nestjs/common";
 import { BoardStatus } from "../board-status.enum";
+import { CreateBoardDto } from "../dto/create-board.dto";
 
 // BoardStatus를 사용하는 메서드에서 해당 파이프를 사용해주면 된다
 // Update에서 status를 사용!
@@ -18,7 +19,7 @@ export class BoardStatusValidationPipe implements PipeTransform {
         }
         // 해당 변수에 어떤값이 들어가는지 로그확인
         // console.log('value', value);
-        // console.log('metadata', metadata);
+        console.log(BoardStatus);
         
         return value;   
     }

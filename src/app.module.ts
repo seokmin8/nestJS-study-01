@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BoardRepository } from './boards/board.repository';
 import { BoardsModule } from './boards/boards.module';
-import { BoardsService } from './boards/boards.service';
 import { typeORMConfig } from './configs/typeorm.config';
 
+// TypeOrmModule를 사용하여 엔티티를 AppModule에 등록하기 위한 작업
 @Module({
-  providers: [BoardsService],
-
-  imports: [TypeOrmModule.forRoot(typeORMConfig), BoardsModule],
+  imports: [
+    TypeOrmModule.forRoot(typeORMConfig),
+    BoardsModule,
+    // other module imports
+  ],
+  // other AppModule config
 })
 export class AppModule {}

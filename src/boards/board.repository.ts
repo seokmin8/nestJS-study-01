@@ -1,3 +1,5 @@
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
 import { CustomRepository } from "src/typeorm-ex.decorator";
 import { EntityRepository, Repository } from "typeorm";
 import { Board } from "./board.entity";
@@ -7,3 +9,10 @@ import { Board } from "./board.entity";
 export class BoardRepository extends Repository<Board> {
 
 }
+
+// @Injectable()
+// export class BoardRepository {
+//     constructor(
+//         @InjectRepository(Board)
+//         private readonly boardRepository: Repository<Board>,
+//     ) {}

@@ -7,13 +7,14 @@ import { BoardsController } from './boards.controller';
 import { BoardsService } from './boards.service';
 
 @Module({
-  // Repository는 직접 작성(이렇게하면 Repository 사용가능)
+  exports: [BoardsService],
+  
+  // Entity를 사용할 때는 TypeOrmModule로
+  // Repository를 사용할 때는 TypeOrmExModule로 구분하여 사용  
   imports: [
-    // 현재버젼에서 사용불가! forFeature 아래문으로 대체!
-    // TypeOrmModule.forFeature([BoardRepository])
-    TypeOrmExModule.forCustomRepository([Board])
+    TypeOrmModule.forFeature([Board]),
+    TypeOrmExModule.forCustomRepository([BoardRepository]),
   ],
-  // 컨트롤러 생성시 자동완성
   controllers: [BoardsController],
   
   // 서비스 생성시 자동완성 
