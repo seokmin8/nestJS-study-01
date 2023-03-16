@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from 'src/auth/auth.module';
 import { TypeOrmExModule } from 'src/typeorm-ex.module';
 import { Board } from './board.entity';
 import { BoardRepository } from './board.repository';
@@ -10,10 +11,12 @@ import { BoardsService } from './boards.service';
   exports: [BoardsService],
   
   // Entity를 사용할 때는 TypeOrmModule로
-  // Repository를 사용할 때는 TypeOrmExModule로 구분하여 사용  
+  // Repository를 사용할 때는 TypeOrmExModule로 구분하여 사용 
+  // AuthGuard를 사용하기 위해 Auth모듈 import 해줌
   imports: [
     TypeOrmModule.forFeature([Board]),
     TypeOrmExModule.forCustomRepository([BoardRepository]),
+    AuthModule,
   ],
   controllers: [BoardsController],
   

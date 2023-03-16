@@ -1,8 +1,8 @@
 import {
     Body, Controller, Get, Param, Post, Delete, ParseIntPipe,
-    Patch, UsePipes, ValidationPipe
+    Patch, UsePipes, ValidationPipe, UseGuards
 } from "@nestjs/common";
-import { get } from "http";
+import { AuthGuard } from "@nestjs/passport";
 import { BoardStatus } from "./board-status.enum";
 import { Board } from "./board.entity";
 import { BoardsService } from "./boards.service";
@@ -10,6 +10,7 @@ import { CreateBoardDto } from "./dto/create-board.dto";
 import { BoardStatusValidationPipe } from "./pipes/board-status-validation.pipe";
 
 @Controller('boards')
+@UseGuards(AuthGuard()) // 컨트롤러 레벨로 deco..를 지정(모든 핸들러가 영향)
 export class BoardsController {
     // 서비스에 Repository를 넣고 생성자로 서비스를 불러오자
     constructor(private boardsService: BoardsService) { }
