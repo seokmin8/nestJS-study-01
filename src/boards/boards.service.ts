@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { User } from "src/auth/user.entity";
 import { BoardStatus } from "./board-status.enum";
 import { Board } from "./board.entity";
 import { BoardRepository } from "./board.repository";
@@ -12,14 +13,23 @@ export class BoardsService {
     constructor(
         private boardRepository: BoardRepository) {}
     
-    async getAllBoards(): Promise<Board[]> {
-        return this.boardRepository.find();
+    async getAllBoards(
+        user: User
+    ): Promise<Board[]> {
+        const query = this.boardRepository.createQueryBuilder('board');
+
+        query.where('board.userId = :userId', { userId: user.id });
+
+        const boards = await query.getMany();
+
+        return boards;
+        // return this.boardRepository.find();
     }
 
     // create 로직은 Repository.ts에 정의 해두고 가져오기만 한다
-    createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+    createBoard(createBoardDto: CreateBoardDto, user: User): Promise<Board> {
         
-        return this.boardRepository.createBoard(createBoardDto);
+        return this.boardRepository.createBoard(createBoardDto, user);
     }
 
     async getBoardById(id: number): Promise<Board> {
@@ -33,8 +43,8 @@ export class BoardsService {
         return found;
     }
 
-    async deleteBoard(id: number): Promise<void> {
-        const result = await this.boardRepository.delete(id);
+    async deleteBoard(id: number, user: User): Promise<void> {
+        const result = await this.boardRepository.delete({id, user});
         
         // 지우고자 하는 id값이 없어도 확인이 되지 않기에 확인 로직 추가
         if (result.affected === 0) {
