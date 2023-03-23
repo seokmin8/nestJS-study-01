@@ -44,8 +44,12 @@ export class BoardsService {
     }
 
     async deleteBoard(id: number, user: User): Promise<void> {
-        const result = await this.boardRepository.delete({id, user});
         
+        // delete 메서드에 user가 인식되지 않음
+        const result = await this.boardRepository.delete({id, user : { id: user.id }});
+
+        // const query = this.boardRepository.createQueryBuilder('board');
+       
         // 지우고자 하는 id값이 없어도 확인이 되지 않기에 확인 로직 추가
         if (result.affected === 0) {
             throw new NotFoundException(`Can't find Board with this id >> ${id}`);

@@ -17,4 +17,5 @@ export class User extends BaseEntity {
     // 여기user는 user는 1명인데 게시글은 여러개
     @OneToMany(type => Board, board => board.user, { eager: true })
     boards: Board[]; 
+    userId: any;
 }
